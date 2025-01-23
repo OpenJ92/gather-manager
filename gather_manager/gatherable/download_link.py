@@ -1,5 +1,5 @@
 from aiohttp import ClientSession
-from gather_manager.typeclass import Gatherable
+from gather_manager.typeclass.gatherable import Gatherable
 
 class DownloadLink(Gatherable):
     def __init__(self, url_formatter, specifier):
@@ -14,4 +14,5 @@ class DownloadLink(Gatherable):
                 if response.status != 200:
                     raise ValueError(f"Failed Download with status: {respose.status}")
 
-                return await response.read()
+                return await response.content.read()
+

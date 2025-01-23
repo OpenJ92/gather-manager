@@ -1,3 +1,5 @@
+from typing import Protocol
+
 class Gatherable(Protocol):
     async def gather(self) -> dict:
         """
