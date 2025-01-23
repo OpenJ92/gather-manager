@@ -16,6 +16,7 @@ async def main():
 
     await local.async_save(payload, f"/app/internal/{specifier}.SC2Replay")
     replay = load_replay(f"/app/internal/{specifier}.SC2Replay", load_level=1)
+    await local.async_delete(f"/app/internal/{specifier}.SC2Replay")
 
     external = AsyncLocalStorage("/app/external")
     release_string = replay.release_string.replace('.', '_')
