@@ -1,0 +1,11 @@
+services:
+  gather-manager:
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - ../storage-bridge:/submodules/storage-bridge
+    working_dir: /app
+    tty: true
+    container_name: gather-manager
+
