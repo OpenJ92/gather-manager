@@ -1,4 +1,5 @@
 from asyncio import run
+from io import BytesIO
 from sc2reader import load_replay
 
 from gather_manager.gatherable.download_link import DownloadLink
@@ -10,13 +11,7 @@ async def main():
     gatherable = DownloadLink(url_formatter, specifier)
 
     payload = await gatherable.gather()
-    print(f"Payload type: {type(payload)}, length: {len(payload)}")
-
-    local = AsyncLocalStorage("/app/internal")
-
-    await local.async_save(payload, f"/app/internal/{specifier}.SC2Replay")
-    replay = load_replay(f"/app/internal/{specifier}.SC2Replay", load_level=1)
-    await local.async_delete(f"/app/internal/{specifier}.SC2Replay")
+    replay = load_replay(BytesIO(payload), load_level=1)
 
     external = AsyncLocalStorage("/app/external")
     release_string = replay.release_string.replace('.', '_')
