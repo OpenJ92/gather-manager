@@ -15,12 +15,14 @@ async def main():
     local = AsyncLocalStorage("/app/internal")
 
     await local.async_save(payload, f"/app/internal/{specifier}.SC2Replay")
-    replay_internal = load_replay(f"/app/internal/{specifier}.SC2Replay", load_level=1)
+    replay = load_replay(f"/app/internal/{specifier}.SC2Replay", load_level=1)
 
     external = AsyncLocalStorage("/app/external")
-    await external.async_save(payload, f"/app/external/{replay_internal.filehash}.{replay_internal.map_hash}.SC2Replay")
+    release_string = replay.release_string.replace('.', '_')
+    save_path = f"/app/external/{replay.filehash}.{release_string}.{replay.map_hash}.SC2Replay"
+    await external.async_save(payload, save_path)
 
-    replay_external = load_replay(f"/app/external/{replay_internal.filehash}.{replay_internal.map_hash}.SC2Replay", load_level=4)
+    replay_external = load_replay(save_path, load_level=4)
 
     breakpoint()
 
