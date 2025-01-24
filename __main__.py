@@ -10,7 +10,7 @@ async def main():
     start = 16719051
     start = 256258
     for specifier in range(start, start-5, -1):
-        url_formatter = lambda id: f"https://sc2replaystats.com/download/{id}"
+        url_formatter = lambda id: f"https://sc2replaystats.com/download/{id}" ## 500 replays/day
         url_formatter = lambda id: f"https://www.rts-sanctuary.com/StarCraft-2/act=Attach&type=post&id={id}" # 403
         url_formatter = lambda id: f"https://lotv.spawningtool.com/{id}/download/"
         url_formatter = lambda id: f"https://www.gamereplays.org/starcraft2/replays.php?game=33&show=download&&id={id}"
